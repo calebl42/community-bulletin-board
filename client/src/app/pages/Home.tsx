@@ -1,5 +1,9 @@
 import { useState, useEffect } from 'react';
 import Message, { type MessageObj } from './../../components/Message.tsx';
+import InputMessageBar from './../../components/InputMessageBar.tsx';
+
+let initMessages = false;
+
 function Home() {
   const [ messages, setMessages ] = useState<MessageObj[]>([]);
 
@@ -11,14 +15,17 @@ function Home() {
       }
 
       const result = await response.json();
-      setMessages(JSON.parse(result));
+      setMessages(await JSON.parse(result));
     } catch (err) {
       console.error('Error fetching messages, ' + err);
     }
   }
 
   useEffect(() => {
-    getMessages();
+    if (!initMessages) {
+      getMessages();
+    }
+    initMessages = true;
   }, []);
 
   return (
@@ -27,8 +34,9 @@ function Home() {
         <h1>Community Bulletin Board</h1>
       </header>
       <main>
+        <InputMessageBar messages={messages} setMessages={setMessages} />
         <ul>
-          {messages && messages.map((m) => <Message message={m} />)}
+          {messages && messages.reverse().map((m) => <li key={m.id}><Message message={m} /></li>)}
         </ul>
       </main>
       <footer>

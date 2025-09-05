@@ -14,6 +14,7 @@ const corsOptions = {
   origin: ['http://localhost:5173'],
 };
 app.use(cors(corsOptions));
+app.use(express.json());
 
 //server will automatically send index.html when client requests '/' resource
 app.use(express.static(path.join(__dirname, '../client/dist')));
@@ -26,6 +27,19 @@ app.get('/api/messages', (req, res) => {
     }
     res.status(200).json(data);
   });
+});
+
+app.post('/api/new', (req, res) => {
+  fs.readFile('./messages.json', 'utf8', (err, data) => {
+    let messagesArray = JSON.parse(data);
+    messagesArray.push(req.body);
+    let messagesData = JSON.stringify(messagesArray) 
+    fs.writeFile('./messages.json', messagesData, (err) => {
+      if (err) throw err;
+    });
+  });
+  
+  res.status(201).end();
 });
 
 app.listen(port, hostname, () => {

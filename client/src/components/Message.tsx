@@ -11,10 +11,10 @@ export interface MessageProps {
 
 function Message({ message }: MessageProps) {
   return (
-    <li key={message.id}>
+    <>
       <h3>{message.name} ({message.date}):</h3>
       <p>{message.content}</p>
-    </li>
+    </>
   );
 }
 

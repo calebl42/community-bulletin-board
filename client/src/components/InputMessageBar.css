@@ -1,0 +1,27 @@
+form {
+  display: flex;
+  justify-content: center;
+  gap: 3vw;
+  align-items: center;
+  padding-bottom: 3vh;
+  border-bottom: 2px solid white;
+}
+
+#name-bar {
+  display: flex;
+  gap: 10px;
+  align-items: center;
+}
+
+#send-bar {
+  display: flex;
+  gap: 10px;
+  align-items: center;
+  textarea {
+    height: 5vh;
+    margin-top: 2vh;
+  }
+  button {
+    margin-top: 2vh;
+  }
+}
