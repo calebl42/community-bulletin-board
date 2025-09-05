@@ -36,3 +36,7 @@ li {
     font-size: 20px;
   }
 }
+
+ul {
+  padding: 2vh 6vh;
+}
