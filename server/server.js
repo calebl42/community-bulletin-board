@@ -1,0 +1,33 @@
+import express from 'express';
+import 'dotenv/config';
+import path from 'node:path';
+import fs from 'fs';
+const app = express();
+
+const __dirname = import.meta.dirname;
+//get port and hostname from .env
+const port = process.env.PORT || 8080;
+const hostname = process.env.HOSTNAME || 'localhost'; 
+//allow cors for dev environment
+import cors from 'cors';
+const corsOptions = {
+  origin: ['http://localhost:5173'],
+};
+app.use(cors(corsOptions));
+
+//server will automatically send index.html when client requests '/' resource
+app.use(express.static(path.join(__dirname, '../client/dist')));
+
+app.get('/api/messages', (req, res) => {
+  fs.readFile('./messages.json', 'utf8', (err, data) => {
+    if (err) {
+      console.error('Error reading file: ', err);
+      return;
+    }
+    res.status(200).json(data);
+  });
+});
+
+app.listen(port, hostname, () => {
+  console.log(`Express server running at http://${hostname}:${port}`);
+});
