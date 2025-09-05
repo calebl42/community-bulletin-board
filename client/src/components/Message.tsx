@@ -1,3 +1,5 @@
+import { format, formatDistance, formatRelative, subDays } from 'date-fns';
+
 export interface MessageObj {
   name: string;
   date: string;
@@ -12,7 +14,7 @@ export interface MessageProps {
 function Message({ message }: MessageProps) {
   return (
     <>
-      <h3>{message.name} ({message.date}):</h3>
+      <h3>{message.name} ({format(message.date, 'PP')}):</h3>
       <p>{message.content}</p>
     </>
   );

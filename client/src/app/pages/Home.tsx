@@ -21,6 +21,17 @@ function Home() {
     }
   }
 
+  function getMessageElements() {
+    if (messages.length === 0) return (<></>);
+    let reversedMessages = structuredClone(messages);
+    reversedMessages.reverse();
+    return (
+      <>
+        {reversedMessages.map((m) => <li key={m.id}><Message message={m} /></li>)}
+      </>
+    );
+  }
+
   useEffect(() => {
     if (!initMessages) {
       getMessages();
@@ -36,7 +47,7 @@ function Home() {
       <main>
         <InputMessageBar messages={messages} setMessages={setMessages} />
         <ul>
-          {messages && messages.reverse().map((m) => <li key={m.id}><Message message={m} /></li>)}
+          {getMessageElements()}
         </ul>
       </main>
       <footer>
