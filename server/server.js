@@ -14,7 +14,7 @@ const corsOptions = {
 };
 app.use(cors(corsOptions));
 app.use(express.json());
-app.use(express.static(path.join(__dirname, './public')));
+app.use(express.static(__dirname));
 
 app.get('/api/messages', (req, res) => {
   fs.readFile('./messages.json', 'utf8', (err, data) => {
@@ -40,8 +40,7 @@ app.post('/api/new', (req, res) => {
 });
 
 app.get('/{*splat}', (req, res) => {
-  const indexPath = path.join(__dirname, './public/index.html');
-  console.log(`[DEBUG] Attempting to send file: ${indexPath}`);
+  const indexPath = path.join(__dirname, './index.html');
   res.sendFile(indexPath);
 });
 
