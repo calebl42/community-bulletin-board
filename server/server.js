@@ -51,6 +51,6 @@ app.get('/{*splat}', (req, res) => {
   res.sendFile(indexPath);
 });
 
-app.listen(port, hostname, () => {
+app.listen(port, () => {
   console.log(`Express server running at http://${hostname}:${port}`);
 });
