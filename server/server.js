@@ -7,7 +7,6 @@ const app = express();
 const __dirname = import.meta.dirname;
 //get port and hostname from .env
 const port = process.env.PORT || 8080;
-const hostname = process.env.HOSTNAME || 'localhost'; 
 //allow cors for dev environment
 import cors from 'cors';
 const corsOptions = {
@@ -47,5 +46,5 @@ app.get('/{*splat}', (req, res) => {
 });
 
 app.listen(port, () => {
-  console.log(`Express server running at http://${hostname}:${port}`);
+  console.log(`Express server running at https://valuable-lethia-calebl42-00b31e2a.koyeb.app:${port}`);
 });
