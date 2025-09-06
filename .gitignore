@@ -2,4 +2,3 @@ node_modules
 .env
 build
 npm-debug.log
-dist

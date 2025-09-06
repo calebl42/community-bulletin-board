@@ -42,6 +42,10 @@ app.post('/api/new', (req, res) => {
   res.status(201).end();
 });
 
+app.get('*', (req, res) => {
+  res.sendFile(path.join(__dirname, '../client/dist/index.html'));
+});
+
 app.listen(port, hostname, () => {
   console.log(`Express server running at http://${hostname}:${port}`);
 });
