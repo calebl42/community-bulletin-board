@@ -15,12 +15,7 @@ const corsOptions = {
 };
 app.use(cors(corsOptions));
 app.use(express.json());
-
-const staticPath = path.resolve(__dirname, '../client/dist');
-console.log(`[DEBUG] Attempting to serve static files from: ${staticPath}`);
-
-//server will automatically send index.html when client requests '/' resource
-app.use(express.static(staticPath));
+app.use(express.static(path.join(__dirname, './public')));
 
 app.get('/api/messages', (req, res) => {
   fs.readFile('./messages.json', 'utf8', (err, data) => {
@@ -46,7 +41,7 @@ app.post('/api/new', (req, res) => {
 });
 
 app.get('/{*splat}', (req, res) => {
-  const indexPath = path.join(staticPath, 'index.html');
+  const indexPath = path.join(__dirname, './public/index.html');
   console.log(`[DEBUG] Attempting to send file: ${indexPath}`);
   res.sendFile(indexPath);
 });
