@@ -45,7 +45,7 @@ function Home() {
         <h1>Community Bulletin Board</h1>
       </header>
       <main>
-        <InputMessageBar messages={messages} setMessages={setMessages} />
+        <InputMessageBar setMessages={setMessages} />
         <ul>
           {getMessageElements()}
         </ul>

@@ -3,11 +3,10 @@ import './InputMessageBar.css';
 import { type MessageObj } from './Message.tsx';
 
 interface InputMessageBarProps {
-  messages: MessageObj[];
   setMessages: React.Dispatch<React.SetStateAction<MessageObj[]>>;
 }
 
-function InputMessageBar({ messages, setMessages }: InputMessageBarProps) {
+function InputMessageBar({ setMessages }: InputMessageBarProps) {
   const [ currentMessage, setCurrentMessage ] = useState('');
   const [ username, setUsername ] = useState('');
 
