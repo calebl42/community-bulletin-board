@@ -21,7 +21,7 @@ app.get('/api/messages', (req, res) => {
   fs.readFile('./messages.json', 'utf8', (err, data) => {
     if (err) {
       console.error('Error reading file: ', err);
-      return res.status(500).send("Error reading messages for update.");
+      return;
     }
     res.status(200).json(data);
   });
@@ -34,36 +34,11 @@ app.post('/api/new', (req, res) => {
     let messagesData = JSON.stringify(messagesArray) 
     fs.writeFile('./messages.json', messagesData, (err) => {
       console.error('Error writing file: ', err);
-      return res.status(500).send("Error saving new message.");
+      return;
     });
   });
   
   res.status(201).end();
-});
-
-app.get('/debug-fs', (req, res) => {
-  const assetsPath = path.join(publicPath, 'assets');
-  const responseData = {
-      publicDir: { path: publicPath, contents: null, error: null },
-      assetsDir: { path: assetsPath, contents: null, error: null },
-  };
-
-  fs.readdir(publicPath, (err, files) => {
-      if (err) {
-          responseData.publicDir.error = err.message;
-      } else {
-          responseData.publicDir.contents = files;
-      }
-
-      fs.readdir(assetsPath, (err, files) => {
-          if (err) {
-              responseData.assetsDir.error = err.message;
-          } else {
-              responseData.assetsDir.contents = files;
-          }
-          res.json(responseData);
-      });
-  });
 });
 
 app.get('/{*splat}', (req, res) => {
