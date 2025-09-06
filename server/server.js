@@ -41,6 +41,31 @@ app.post('/api/new', (req, res) => {
   res.status(201).end();
 });
 
+app.get('/debug-fs', (req, res) => {
+  const assetsPath = path.join(publicPath, 'assets');
+  const responseData = {
+      publicDir: { path: publicPath, contents: null, error: null },
+      assetsDir: { path: assetsPath, contents: null, error: null },
+  };
+
+  fs.readdir(publicPath, (err, files) => {
+      if (err) {
+          responseData.publicDir.error = err.message;
+      } else {
+          responseData.publicDir.contents = files;
+      }
+
+      fs.readdir(assetsPath, (err, files) => {
+          if (err) {
+              responseData.assetsDir.error = err.message;
+          } else {
+              responseData.assetsDir.contents = files;
+          }
+          res.json(responseData);
+      });
+  });
+});
+
 app.get('/{*splat}', (req, res) => {
   const indexPath = path.join(publicPath, 'index.html');
   res.sendFile(indexPath);
