@@ -9,7 +9,7 @@ function Home() {
 
   async function getMessages() {
     try {
-      const response = await fetch('http://localhost:8080/api/messages');
+      const response = await fetch('http://https://valuable-lethia-calebl42-00b31e2a.koyeb.app/api/messages');
       if (!response.ok) {
         throw new Error(`Response status: ${response.status}`);
       }
