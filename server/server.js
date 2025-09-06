@@ -14,13 +14,14 @@ const corsOptions = {
 };
 app.use(cors(corsOptions));
 app.use(express.json());
-app.use(express.static(__dirname));
+const publicPath = path.join(__dirname, 'public');
+app.use(express.static(publicPath));
 
 app.get('/api/messages', (req, res) => {
   fs.readFile('./messages.json', 'utf8', (err, data) => {
     if (err) {
       console.error('Error reading file: ', err);
-      return;
+      return res.status(500).send("Error reading messages for update.");
     }
     res.status(200).json(data);
   });
@@ -32,18 +33,19 @@ app.post('/api/new', (req, res) => {
     messagesArray.push(req.body);
     let messagesData = JSON.stringify(messagesArray) 
     fs.writeFile('./messages.json', messagesData, (err) => {
-      if (err) throw err;
+      console.error('Error writing file: ', err);
+      return res.status(500).send("Error saving new message.");
     });
   });
   
   res.status(201).end();
 });
 
-// app.get('/{*splat}', (req, res) => {
-//   const indexPath = path.join(__dirname, './index.html');
-//   res.sendFile(indexPath);
-// });
+app.get('/{*splat}', (req, res) => {
+  const indexPath = path.join(publicPath, 'index.html');
+  res.sendFile(indexPath);
+});
 
 app.listen(port, () => {
-  console.log(`Express server running at https://valuable-lethia-calebl42-00b31e2a.koyeb.app:${port}`);
+  console.log(`Express server running on port ${port}`);
 });
