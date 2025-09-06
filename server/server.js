@@ -39,10 +39,10 @@ app.post('/api/new', (req, res) => {
   res.status(201).end();
 });
 
-app.get('/{*splat}', (req, res) => {
-  const indexPath = path.join(__dirname, './index.html');
-  res.sendFile(indexPath);
-});
+// app.get('/{*splat}', (req, res) => {
+//   const indexPath = path.join(__dirname, './index.html');
+//   res.sendFile(indexPath);
+// });
 
 app.listen(port, () => {
   console.log(`Express server running at https://valuable-lethia-calebl42-00b31e2a.koyeb.app:${port}`);
