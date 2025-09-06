@@ -18,7 +18,7 @@ function InputMessageBar({ setMessages }: InputMessageBarProps) {
         'content': currentMessage,
         'id': crypto.randomUUID()
       };
-      const response = await fetch('http://https://valuable-lethia-calebl42-00b31e2a.koyeb.app/api/new', {
+      const response = await fetch('https://valuable-lethia-calebl42-00b31e2a.koyeb.app/api/new', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
